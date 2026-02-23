@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Тарнакина Вяжу — Видеокурсы по машинному вязанию</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #faf8f5;
@@ -14,23 +16,30 @@
     --accent2: #a85d3f;
     --accent-light: #f3ebe5;
     --border: #e8e2da;
-    --green: #4caf50;
+    --green: #4a9e5c;
     --radius: 12px;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
-  
+  body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+  /* ICONS — inline SVG helper */
+  .icon { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; flex-shrink: 0; }
+  .icon svg { width: 100%; height: 100%; }
+  .icon-lg { width: 28px; height: 28px; }
+  .icon-xl { width: 48px; height: 48px; }
+  .icon-xxl { width: 64px; height: 64px; }
+
   /* NAV */
   nav { background: var(--card); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
   .nav-inner { max-width: 1100px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; }
-  .logo { font-size: 20px; font-weight: 700; color: var(--accent); text-decoration: none; }
+  .logo { font-size: 20px; font-weight: 700; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 8px; }
   .logo span { color: var(--text); }
   .nav-links { display: flex; gap: 24px; align-items: center; }
-  .nav-links a { text-decoration: none; color: var(--text2); font-size: 14px; font-weight: 500; transition: color .2s; }
+  .nav-links a { text-decoration: none; color: var(--text2); font-size: 14px; font-weight: 500; transition: color .2s; display: flex; align-items: center; gap: 5px; }
   .nav-links a:hover { color: var(--accent); }
   .btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 22px; border-radius: 8px; font-size: 14px; font-weight: 600; text-decoration: none; border: none; cursor: pointer; transition: all .2s; }
   .btn-primary { background: var(--accent); color: #fff; }
-  .btn-primary:hover { background: var(--accent2); }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
   .btn-outline { background: transparent; border: 1.5px solid var(--border); color: var(--text); }
   .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
   .btn-sm { padding: 7px 16px; font-size: 13px; }
@@ -47,20 +56,19 @@
 
   /* COURSES */
   .section { max-width: 1100px; margin: 0 auto; padding: 50px 20px; }
-  .section-title { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+  .section-title { font-size: 28px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
   .section-sub { color: var(--text2); margin-bottom: 32px; }
   .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
-  .course-card { background: var(--card); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); transition: transform .2s, box-shadow .2s; }
+  .course-card { background: var(--card); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); transition: transform .2s, box-shadow .2s; cursor: pointer; }
   .course-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.08); }
-  .course-thumb { height: 160px; background: var(--accent-light); display: flex; align-items: center; justify-content: center; font-size: 48px; }
+  .course-thumb { height: 160px; background: var(--accent-light); display: flex; align-items: center; justify-content: center; }
   .course-body { padding: 16px; }
   .course-body h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
   .course-meta { display: flex; gap: 16px; font-size: 13px; color: var(--text2); margin-bottom: 12px; }
   .course-meta span { display: flex; align-items: center; gap: 4px; }
   .course-price { font-size: 18px; font-weight: 700; color: var(--accent); }
-  .course-price .old { font-size: 14px; color: var(--text2); text-decoration: line-through; font-weight: 400; margin-left: 8px; }
 
-  /* LESSON PREVIEW */
+  /* LESSON */
   .lesson-section { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; margin-top: 20px; }
   .lesson-list { list-style: none; }
   .lesson-item { display: flex; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--border); }
@@ -69,58 +77,56 @@
   .lesson-info { flex: 1; }
   .lesson-info h4 { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
   .lesson-info span { font-size: 13px; color: var(--text2); }
-  .lesson-lock { color: var(--text2); font-size: 18px; }
-  .lesson-play { color: var(--green); font-size: 18px; }
+  .lesson-status { flex-shrink: 0; }
   .progress-bar { height: 4px; background: var(--border); border-radius: 2px; margin-top: 4px; overflow: hidden; }
   .progress-fill { height: 100%; background: var(--accent); border-radius: 2px; }
 
-  /* CHAT PREVIEW */
+  /* CHAT */
   .chat-preview { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-top: 20px; }
   .chat-msg { display: flex; gap: 10px; margin-bottom: 14px; }
-  .chat-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--accent-light); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: var(--accent); flex-shrink: 0; }
+  .chat-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--accent-light); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: var(--accent); flex-shrink: 0; }
   .chat-bubble { background: var(--bg); border-radius: 12px; padding: 10px 14px; max-width: 80%; }
   .chat-bubble .name { font-size: 12px; font-weight: 600; color: var(--accent); margin-bottom: 2px; }
   .chat-bubble p { font-size: 14px; margin: 0; }
   .chat-bubble .reply-ref { font-size: 12px; color: var(--text2); border-left: 2px solid var(--accent); padding-left: 8px; margin-bottom: 6px; }
   .chat-input { display: flex; gap: 10px; margin-top: 14px; border-top: 1px solid var(--border); padding-top: 14px; }
-  .chat-input input { flex: 1; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; outline: none; }
+  .chat-input input { flex: 1; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; outline: none; background: var(--bg); }
   .chat-input input:focus { border-color: var(--accent); }
 
   /* FOOTER */
   footer { background: var(--card); border-top: 1px solid var(--border); margin-top: 60px; }
   .footer-inner { max-width: 1100px; margin: 0 auto; padding: 40px 20px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; }
   .footer-brand p { font-size: 14px; color: var(--text2); margin-top: 8px; max-width: 300px; }
-  .footer-col h4 { font-size: 14px; font-weight: 600; margin-bottom: 12px; color: var(--text); }
+  .footer-col h4 { font-size: 14px; font-weight: 600; margin-bottom: 12px; }
   .footer-col a { display: block; font-size: 13px; color: var(--text2); text-decoration: none; margin-bottom: 8px; transition: color .2s; }
   .footer-col a:hover { color: var(--accent); }
   .footer-bottom { max-width: 1100px; margin: 0 auto; padding: 16px 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text2); text-align: center; }
-  .social-links { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
-  .social-links a { display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; border-radius: 6px; font-size: 12px; background: var(--accent-light); color: var(--accent2); text-decoration: none; font-weight: 500; transition: all .2s; }
+  .social-links { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+  .social-links a { display: inline-flex; align-items: center; gap: 5px; padding: 6px 12px; border-radius: 6px; font-size: 12px; background: var(--accent-light); color: var(--accent2); text-decoration: none; font-weight: 500; transition: all .2s; }
   .social-links a:hover { background: var(--accent); color: #fff; }
 
   /* TABS */
   .tabs { display: flex; gap: 0; border-bottom: 2px solid var(--border); margin-bottom: 24px; }
-  .tab { padding: 10px 20px; font-size: 14px; font-weight: 600; color: var(--text2); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all .2s; }
+  .tab { padding: 10px 20px; font-size: 14px; font-weight: 600; color: var(--text2); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all .2s; display: flex; align-items: center; gap: 6px; }
   .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
   .tab:hover { color: var(--accent); }
 
-  /* AUTH MODAL */
-  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.4); display: none; align-items: center; justify-content: center; z-index: 200; }
+  /* MODAL */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.4); display: none; align-items: center; justify-content: center; z-index: 200; backdrop-filter: blur(4px); }
   .modal-overlay.show { display: flex; }
-  .modal { background: var(--card); border-radius: 16px; padding: 32px; width: 380px; max-width: 90vw; }
+  .modal { background: var(--card); border-radius: 16px; padding: 32px; width: 380px; max-width: 90vw; position: relative; }
   .modal h2 { font-size: 22px; margin-bottom: 20px; text-align: center; }
   .modal label { font-size: 13px; font-weight: 600; color: var(--text2); display: block; margin-bottom: 4px; }
   .modal input[type=email], .modal input[type=password] { width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; margin-bottom: 14px; outline: none; }
   .modal input:focus { border-color: var(--accent); }
   .modal .btn { width: 100%; justify-content: center; margin-top: 4px; }
   .modal .divider { text-align: center; color: var(--text2); font-size: 13px; margin: 16px 0; }
-  .modal .close-btn { position: absolute; right: 16px; top: 16px; background: none; border: none; font-size: 20px; cursor: pointer; color: var(--text2); }
+  .close-btn { position: absolute; right: 12px; top: 12px; background: none; border: none; font-size: 18px; cursor: pointer; color: var(--text2); width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; transition: background .2s; }
+  .close-btn:hover { background: var(--accent-light); }
 
-  /* SCREEN SWITCHER */
   .screen { display: none; }
   .screen.active { display: block; }
 
-  /* RESPONSIVE */
   @media (max-width: 768px) {
     .hero h1 { font-size: 28px; }
     .hero-stats { gap: 20px; }
@@ -133,27 +139,133 @@
 </head>
 <body>
 
+<!-- SVG SPRITE (hidden) -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="i-yarn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/>
+    <path d="M5 12c0-4 3-7 7-7"/>
+    <path d="M8 19c2-3 6-5 9-4"/>
+    <path d="M3.5 9.5c3 1 6 4 5.5 8"/>
+    <path d="M12 2c1 4-1 8-5 10"/>
+    <path d="M19 7c-2 2-5 3-8 2"/>
+  </symbol>
+  <symbol id="i-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="5 3 19 12 5 21 5 3" fill="currentColor" stroke="none"/>
+  </symbol>
+  <symbol id="i-video" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2" y="4" width="15" height="16" rx="2"/>
+    <path d="M17 8l5-3v14l-5-3"/>
+  </symbol>
+  <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+    <circle cx="9" cy="7" r="4"/>
+    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+  </symbol>
+  <symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+    <circle cx="12" cy="7" r="4"/>
+  </symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="11" width="18" height="11" rx="2"/>
+    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+  </symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="20 6 9 17 4 12"/>
+  </symbol>
+  <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+  </symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </symbol>
+  <symbol id="i-paperclip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
+  </symbol>
+  <symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+    <polyline points="7 10 12 15 17 10"/>
+    <line x1="12" y1="15" x2="12" y2="3"/>
+  </symbol>
+  <symbol id="i-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+    <polyline points="14 2 14 8 20 8"/>
+  </symbol>
+  <symbol id="i-image" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="3" width="18" height="18" rx="2"/>
+    <circle cx="8.5" cy="8.5" r="1.5"/>
+    <polyline points="21 15 16 10 5 21"/>
+  </symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="3"/>
+    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+  </symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+  </symbol>
+  <symbol id="i-key" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/>
+  </symbol>
+  <symbol id="i-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+  </symbol>
+  <symbol id="i-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+  </symbol>
+  <symbol id="i-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+  </symbol>
+  <symbol id="i-grad" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+    <path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"/>
+  </symbol>
+  <!-- Course-specific icons -->
+  <symbol id="i-scissors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/>
+    <line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/>
+  </symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+  </symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+  </symbol>
+  <symbol id="i-reply" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="9 17 4 12 9 7"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/>
+  </symbol>
+</svg>
+
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <a href="#" class="logo" onclick="showScreen('home')">🧶 <span>Тарнакина</span> Вяжу</a>
+    <a href="javascript:void(0)" class="logo" onclick="showScreen('home')">
+      <svg class="icon icon-lg" style="color:var(--accent)"><use href="#i-yarn"/></svg>
+      <span>Тарнакина</span> Вяжу
+    </a>
     <div class="nav-links">
       <a href="javascript:void(0)" class="hide-mobile" onclick="showScreen('home')">Курсы</a>
       <a href="javascript:void(0)" class="hide-mobile" onclick="showScreen('about')">Об авторе</a>
       <a href="javascript:void(0)" id="nav-login" onclick="showModal()">Войти</a>
-      <a href="javascript:void(0)" id="nav-profile" style="display:none" onclick="showScreen('dashboard')">👤 Мой кабинет</a>
+      <a href="javascript:void(0)" id="nav-profile" style="display:none" onclick="showScreen('dashboard')">
+        <svg class="icon"><use href="#i-user"/></svg> Мой кабинет
+      </a>
     </div>
   </div>
 </nav>
 
-<!-- HOME SCREEN -->
+<!-- HOME -->
 <div id="screen-home" class="screen active">
   <div class="hero">
     <h1>Курсы <em>машинного вязания</em> от Марины Тарнакиной</h1>
     <p>Видеоуроки, мастер-классы и поддержка. Учитесь в своём темпе, смотрите с любого устройства.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-      <a href="#courses" class="btn btn-primary">🎓 Смотреть курсы</a>
-      <a href="#" class="btn btn-outline" onclick="showScreen('about')">Об авторе</a>
+      <a href="#courses" class="btn btn-primary">
+        <svg class="icon" style="color:#fff"><use href="#i-grad"/></svg> Смотреть курсы
+      </a>
+      <a href="javascript:void(0)" class="btn btn-outline" onclick="showScreen('about')">Об авторе</a>
     </div>
     <div class="hero-stats">
       <div class="hero-stat"><div class="num">4</div><div class="label">видеокурса</div></div>
@@ -167,45 +279,45 @@
     <div class="section-sub">Выберите курс и начните обучение</div>
     <div class="courses-grid">
       <div class="course-card" onclick="showScreen('course')">
-        <div class="course-thumb">🧶</div>
+        <div class="course-thumb"><svg class="icon-xxl" style="color:var(--accent)"><use href="#i-yarn"/></svg></div>
         <div class="course-body">
           <h3>Основы машинного вязания</h3>
           <div class="course-meta">
-            <span>📹 ~50 видео</span>
-            <span>👥 148 уч.</span>
+            <span><svg class="icon" style="width:16px;height:16px"><use href="#i-video"/></svg> ~50 видео</span>
+            <span><svg class="icon" style="width:16px;height:16px"><use href="#i-users"/></svg> 148 уч.</span>
           </div>
           <div class="course-price">3 990 ₽</div>
         </div>
       </div>
       <div class="course-card">
-        <div class="course-thumb">🎨</div>
+        <div class="course-thumb"><svg class="icon-xxl" style="color:var(--accent)"><use href="#i-grid"/></svg></div>
         <div class="course-body">
           <h3>Жаккард на машине</h3>
           <div class="course-meta">
-            <span>📹 15 видео</span>
-            <span>👥 39 уч.</span>
+            <span><svg class="icon" style="width:16px;height:16px"><use href="#i-video"/></svg> 15 видео</span>
+            <span><svg class="icon" style="width:16px;height:16px"><use href="#i-users"/></svg> 39 уч.</span>
           </div>
           <div class="course-price">2 490 ₽</div>
         </div>
       </div>
       <div class="course-card">
-        <div class="course-thumb">👗</div>
+        <div class="course-thumb"><svg class="icon-xxl" style="color:var(--accent)"><use href="#i-scissors"/></svg></div>
         <div class="course-body">
           <h3>Платье «Элегант»</h3>
           <div class="course-meta">
-            <span>📹 12 видео</span>
-            <span>👥 23 уч.</span>
+            <span><svg class="icon" style="width:16px;height:16px"><use href="#i-video"/></svg> 12 видео</span>
+            <span><svg class="icon" style="width:16px;height:16px"><use href="#i-users"/></svg> 23 уч.</span>
           </div>
           <div class="course-price">1 990 ₽</div>
         </div>
       </div>
       <div class="course-card">
-        <div class="course-thumb">🧣</div>
+        <div class="course-thumb"><svg class="icon-xxl" style="color:var(--accent)"><use href="#i-heart"/></svg></div>
         <div class="course-body">
           <h3>Аксессуары: шарфы и шапки</h3>
           <div class="course-meta">
-            <span>📹 10 видео</span>
-            <span>👥 19 уч.</span>
+            <span><svg class="icon" style="width:16px;height:16px"><use href="#i-video"/></svg> 10 видео</span>
+            <span><svg class="icon" style="width:16px;height:16px"><use href="#i-users"/></svg> 19 уч.</span>
           </div>
           <div class="course-price">1 490 ₽</div>
         </div>
@@ -214,43 +326,55 @@
   </div>
 </div>
 
-<!-- ABOUT SCREEN -->
+<!-- ABOUT -->
 <div id="screen-about" class="screen">
   <div class="section">
     <div style="display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap;">
-      <div style="width:120px;height:120px;border-radius:50%;background:var(--accent-light);display:flex;align-items:center;justify-content:center;font-size:48px;flex-shrink:0;">🧶</div>
+      <div style="width:120px;height:120px;border-radius:50%;background:var(--accent-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <svg class="icon" style="width:56px;height:56px;color:var(--accent)"><use href="#i-yarn"/></svg>
+      </div>
       <div style="flex:1;min-width:280px;">
         <div class="section-title">Марина Тарнакина</div>
         <p style="color:var(--text2);margin-bottom:16px;">Мастер машинного вязания. Более 1000 публикаций, 4 авторских видеокурса, 229+ учеников. Делюсь опытом и помогаю освоить машинное вязание с нуля.</p>
         <div class="social-links">
-          <a href="https://t.me/tarnakinavyagu" target="_blank">📱 Telegram</a>
-          <a href="https://max.ru/vyazanie_na_mashine" target="_blank">💬 Max</a>
-          <a href="https://dzen.ru/vyazanie_na_mashine" target="_blank">📝 Дзен</a>
-          <a href="https://boosty.to/tarnakinavyagu" target="_blank">⭐ Boosty</a>
-          <a href="https://rutube.ru/u/tarnakinavyagu/" target="_blank">🎬 Rutube</a>
-          <a href="https://www.livemaster.ru/opisanie-vyazanie" target="_blank">🛒 Ярмарка МК</a>
-          <a href="https://marishino.livemaster.ru" target="_blank">🧵 Ярмарка Изделия</a>
+          <a href="https://t.me/tarnakinavyagu" target="_blank">Telegram</a>
+          <a href="https://max.ru/vyazanie_na_mashine" target="_blank">Max</a>
+          <a href="https://dzen.ru/vyazanie_na_mashine" target="_blank">Дзен</a>
+          <a href="https://boosty.to/tarnakinavyagu" target="_blank">Boosty</a>
+          <a href="https://rutube.ru/u/tarnakinavyagu/" target="_blank">Rutube</a>
+          <a href="https://www.livemaster.ru/opisanie-vyazanie" target="_blank">Ярмарка МК</a>
+          <a href="https://marishino.livemaster.ru" target="_blank">Ярмарка Изделия</a>
         </div>
         <p style="margin-top:16px;font-size:14px;color:var(--text2);">
-          ✉️ <a href="mailto:mtroshina@yandex.ru" style="color:var(--accent);">mtroshina@yandex.ru</a><br>
-          📩 <a href="https://t.me/mtroshina" target="_blank" style="color:var(--accent);">Написать в Telegram</a>
+          <svg class="icon" style="width:14px;height:14px;vertical-align:-2px"><use href="#i-mail"/></svg>
+          <a href="mailto:mtroshina@yandex.ru" style="color:var(--accent);margin-left:4px;">mtroshina@yandex.ru</a><br>
+          <svg class="icon" style="width:14px;height:14px;vertical-align:-2px;margin-top:4px"><use href="#i-send"/></svg>
+          <a href="https://t.me/mtroshina" target="_blank" style="color:var(--accent);margin-left:4px;">Написать в Telegram</a>
         </p>
       </div>
     </div>
   </div>
 </div>
 
-<!-- COURSE DETAIL SCREEN -->
+<!-- COURSE DETAIL -->
 <div id="screen-course" class="screen">
   <div class="section">
-    <a href="javascript:void(0)" onclick="showScreen('home')" style="color:var(--accent);text-decoration:none;font-size:14px;font-weight:500;">← Назад к курсам</a>
+    <a href="javascript:void(0)" onclick="showScreen('home')" style="color:var(--accent);text-decoration:none;font-size:14px;font-weight:500;display:inline-flex;align-items:center;gap:4px;">
+      <svg class="icon" style="width:16px;height:16px"><use href="#i-arrow-left"/></svg> Назад к курсам
+    </a>
     <h2 style="margin-top:12px;font-size:28px;">Основы машинного вязания</h2>
     <p style="color:var(--text2);margin:8px 0 20px;">Полный курс от Марины Тарнакиной. ~50 видеоуроков, от азов до сложных техник.</p>
-    
+
     <div class="tabs">
-      <div class="tab active" onclick="switchTab(this,'lessons')">📹 Уроки</div>
-      <div class="tab" onclick="switchTab(this,'chat-tab')">💬 Чат</div>
-      <div class="tab" onclick="switchTab(this,'materials')">📎 Материалы</div>
+      <div class="tab active" onclick="switchTab(this,'lessons')">
+        <svg class="icon" style="width:16px;height:16px"><use href="#i-video"/></svg> Уроки
+      </div>
+      <div class="tab" onclick="switchTab(this,'chat-tab')">
+        <svg class="icon" style="width:16px;height:16px"><use href="#i-chat"/></svg> Чат
+      </div>
+      <div class="tab" onclick="switchTab(this,'materials')">
+        <svg class="icon" style="width:16px;height:16px"><use href="#i-paperclip"/></svg> Материалы
+      </div>
     </div>
 
     <div id="tab-lessons" class="lesson-section">
@@ -262,7 +386,7 @@
             <span>12:34</span>
             <div class="progress-bar" style="width:120px;"><div class="progress-fill" style="width:100%"></div></div>
           </div>
-          <div class="lesson-play">✅</div>
+          <div class="lesson-status"><svg class="icon" style="color:var(--green)"><use href="#i-check"/></svg></div>
         </li>
         <li class="lesson-item">
           <div class="lesson-num">2</div>
@@ -271,7 +395,7 @@
             <span>18:45</span>
             <div class="progress-bar" style="width:120px;"><div class="progress-fill" style="width:60%"></div></div>
           </div>
-          <div class="lesson-play">▶️</div>
+          <div class="lesson-status"><svg class="icon" style="color:var(--accent)"><use href="#i-play"/></svg></div>
         </li>
         <li class="lesson-item">
           <div class="lesson-num">3</div>
@@ -279,7 +403,7 @@
             <h4>Кулирная гладь и резинка</h4>
             <span>22:10</span>
           </div>
-          <div class="lesson-lock">🔒</div>
+          <div class="lesson-status"><svg class="icon" style="color:var(--text2);opacity:.5"><use href="#i-lock"/></svg></div>
         </li>
         <li class="lesson-item">
           <div class="lesson-num">4</div>
@@ -287,7 +411,7 @@
             <h4>Убавки и прибавки</h4>
             <span>15:20</span>
           </div>
-          <div class="lesson-lock">🔒</div>
+          <div class="lesson-status"><svg class="icon" style="color:var(--text2);opacity:.5"><use href="#i-lock"/></svg></div>
         </li>
         <li class="lesson-item">
           <div class="lesson-num">5</div>
@@ -295,7 +419,7 @@
             <h4>Вязание по выкройке</h4>
             <span>25:00</span>
           </div>
-          <div class="lesson-lock">🔒</div>
+          <div class="lesson-status"><svg class="icon" style="color:var(--text2);opacity:.5"><use href="#i-lock"/></svg></div>
         </li>
       </ul>
       <p style="text-align:center;color:var(--text2);font-size:13px;margin-top:16px;">... ещё 45 уроков</p>
@@ -306,14 +430,14 @@
         <div class="chat-avatar">МТ</div>
         <div class="chat-bubble">
           <div class="name">Марина Тарнакина</div>
-          <p>Девочки, добро пожаловать на курс! Задавайте вопросы, я всегда на связи 🤗</p>
+          <p>Девочки, добро пожаловать на курс! Задавайте вопросы, я всегда на связи</p>
         </div>
       </div>
       <div class="chat-msg">
         <div class="chat-avatar">ЕК</div>
         <div class="chat-bubble">
           <div class="name">Елена К.</div>
-          <div class="reply-ref">↩️ Урок 2 — Набор петель и первые ряды</div>
+          <div class="reply-ref"><svg class="icon" style="width:12px;height:12px;vertical-align:-1px"><use href="#i-reply"/></svg> Урок 2 — Набор петель и первые ряды</div>
           <p>Марина, подскажите — каретка заедает на 3-м ряду, что делаю не так?</p>
         </div>
       </div>
@@ -321,62 +445,66 @@
         <div class="chat-avatar">МТ</div>
         <div class="chat-bubble">
           <div class="name">Марина Тарнакина</div>
-          <p>Елена, скорее всего нитка слишком толстая для этой плотности. Попробуйте ослабить натяжение на 1 деление 👍</p>
+          <p>Елена, скорее всего нитка слишком толстая для этой плотности. Попробуйте ослабить натяжение на 1 деление</p>
         </div>
       </div>
       <div class="chat-msg">
         <div class="chat-avatar">ОВ</div>
         <div class="chat-bubble">
           <div class="name">Ольга В.</div>
-          <p>Ура, у меня получился первый образец! 🎉</p>
+          <p>Ура, у меня получился первый образец!</p>
         </div>
       </div>
       <div class="chat-input">
         <input type="text" placeholder="Написать сообщение...">
-        <button class="btn btn-primary btn-sm">→</button>
+        <button class="btn btn-primary btn-sm"><svg class="icon" style="width:16px;height:16px;color:#fff"><use href="#i-send"/></svg></button>
       </div>
     </div>
 
     <div id="tab-materials" style="display:none;" class="lesson-section">
       <div class="lesson-item">
-        <div style="font-size:24px;">📄</div>
+        <div class="lesson-status"><svg class="icon icon-lg" style="color:var(--accent)"><use href="#i-file"/></svg></div>
         <div class="lesson-info">
           <h4>Таблица размеров.pdf</h4>
-          <span>245 KB • Скачивание разрешено</span>
+          <span>245 KB · Скачивание разрешено</span>
         </div>
-        <a href="#" class="btn btn-outline btn-sm">⬇️</a>
+        <a href="#" class="btn btn-outline btn-sm"><svg class="icon" style="width:14px;height:14px"><use href="#i-download"/></svg></a>
       </div>
       <div class="lesson-item">
-        <div style="font-size:24px;">🖼️</div>
+        <div class="lesson-status"><svg class="icon icon-lg" style="color:var(--accent)"><use href="#i-image"/></svg></div>
         <div class="lesson-info">
           <h4>Схема узора «Ромбы»</h4>
-          <span>1.2 MB • Только просмотр</span>
+          <span>1.2 MB · Только просмотр</span>
         </div>
-        <span style="font-size:13px;color:var(--text2);">🔒</span>
+        <svg class="icon" style="color:var(--text2);opacity:.5"><use href="#i-lock"/></svg>
       </div>
       <div class="lesson-item">
-        <div style="font-size:24px;">📄</div>
+        <div class="lesson-status"><svg class="icon icon-lg" style="color:var(--accent)"><use href="#i-file"/></svg></div>
         <div class="lesson-info">
           <h4>Выкройка базовый джемпер.pdf</h4>
-          <span>380 KB • Скачивание разрешено</span>
+          <span>380 KB · Скачивание разрешено</span>
         </div>
-        <a href="#" class="btn btn-outline btn-sm">⬇️</a>
+        <a href="#" class="btn btn-outline btn-sm"><svg class="icon" style="width:14px;height:14px"><use href="#i-download"/></svg></a>
       </div>
     </div>
   </div>
 </div>
 
-<!-- DASHBOARD SCREEN -->
+<!-- DASHBOARD -->
 <div id="screen-dashboard" class="screen">
   <div class="section">
-    <div class="section-title">👤 Мой кабинет</div>
+    <div class="section-title">
+      <svg class="icon icon-lg"><use href="#i-user"/></svg> Мой кабинет
+    </div>
     <div class="section-sub">Добро пожаловать, Елена!</div>
-    
+
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;">
       <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;">
-        <h3 style="font-size:15px;margin-bottom:12px;">📚 Мои курсы</h3>
+        <h3 style="font-size:15px;margin-bottom:12px;display:flex;align-items:center;gap:6px;">
+          <svg class="icon"><use href="#i-book"/></svg> Мои курсы
+        </h3>
         <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);">
-          <span style="font-size:24px;">🧶</span>
+          <svg class="icon icon-lg" style="color:var(--accent)"><use href="#i-yarn"/></svg>
           <div style="flex:1;">
             <div style="font-size:14px;font-weight:600;">Основы машинного вязания</div>
             <div style="font-size:12px;color:var(--text2);">Пройдено: 2 из 50</div>
@@ -384,7 +512,7 @@
           </div>
         </div>
         <div style="display:flex;align-items:center;gap:10px;padding:10px 0;">
-          <span style="font-size:24px;">🎨</span>
+          <svg class="icon icon-lg" style="color:var(--accent)"><use href="#i-grid"/></svg>
           <div style="flex:1;">
             <div style="font-size:14px;font-weight:600;">Жаккард на машине</div>
             <div style="font-size:12px;color:var(--text2);">Пройдено: 8 из 15</div>
@@ -393,9 +521,15 @@
         </div>
       </div>
       <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;">
-        <h3 style="font-size:15px;margin-bottom:12px;">⚙️ Настройки</h3>
-        <div style="font-size:14px;margin-bottom:8px;">📧 elena@example.com</div>
-        <div style="font-size:14px;margin-bottom:16px;">🔑 Пароль: ••••••••</div>
+        <h3 style="font-size:15px;margin-bottom:12px;display:flex;align-items:center;gap:6px;">
+          <svg class="icon"><use href="#i-settings"/></svg> Настройки
+        </h3>
+        <div style="font-size:14px;margin-bottom:8px;display:flex;align-items:center;gap:6px;">
+          <svg class="icon" style="width:16px;height:16px;color:var(--text2)"><use href="#i-mail"/></svg> elena@example.com
+        </div>
+        <div style="font-size:14px;margin-bottom:16px;display:flex;align-items:center;gap:6px;">
+          <svg class="icon" style="width:16px;height:16px;color:var(--text2)"><use href="#i-key"/></svg> Пароль: ••••••••
+        </div>
         <a href="#" class="btn btn-outline btn-sm">Изменить данные</a>
       </div>
     </div>
@@ -404,8 +538,10 @@
 
 <!-- AUTH MODAL -->
 <div class="modal-overlay" id="auth-modal" onclick="if(event.target===this)hideModal()">
-  <div class="modal" style="position:relative;">
-    <button class="close-btn" onclick="hideModal()">✕</button>
+  <div class="modal">
+    <button class="close-btn" onclick="hideModal()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="18" height="18"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
     <h2>Вход</h2>
     <label>Email</label>
     <input type="email" placeholder="your@email.com">
@@ -413,7 +549,9 @@
     <input type="password" placeholder="••••••••">
     <button class="btn btn-primary" onclick="doLogin()">Войти</button>
     <div class="divider">или</div>
-    <button class="btn btn-outline" style="width:100%;justify-content:center;">🔗 Войти по ссылке из письма</button>
+    <button class="btn btn-outline" style="width:100%;justify-content:center;">
+      <svg class="icon" style="width:16px;height:16px"><use href="#i-link"/></svg> Войти по ссылке из письма
+    </button>
     <p style="text-align:center;margin-top:16px;font-size:13px;color:var(--text2);">Нет аккаунта? <a href="#" style="color:var(--accent);" onclick="alert('Регистрация через покупку курса')">Купите курс</a></p>
   </div>
 </div>
@@ -422,7 +560,10 @@
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
-      <div class="logo">🧶 <span>Тарнакина</span> Вяжу</div>
+      <div class="logo" style="font-size:18px;">
+        <svg class="icon icon-lg" style="color:var(--accent)"><use href="#i-yarn"/></svg>
+        <span>Тарнакина</span> Вяжу
+      </div>
       <p>Видеокурсы по машинному вязанию от Марины Тарнакиной. Учитесь в удобном темпе.</p>
       <div class="social-links">
         <a href="https://t.me/tarnakinavyagu" target="_blank">Telegram</a>
@@ -463,7 +604,7 @@ function hideModal() {
 function doLogin() {
   hideModal();
   document.getElementById('nav-login').style.display = 'none';
-  document.getElementById('nav-profile').style.display = 'inline';
+  document.getElementById('nav-profile').style.display = 'inline-flex';
   showScreen('dashboard');
 }
 function switchTab(el, tabId) {
