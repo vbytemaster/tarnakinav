@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Тарнакина Вяжу — Видеокурсы по машинному вязанию</title>
+<title>Тарнакина Марина, вяжу на машине</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -32,8 +32,8 @@
   /* NAV */
   nav { background: var(--card); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
   .nav-inner { max-width: 1100px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; }
-  .logo { font-size: 20px; font-weight: 700; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 8px; }
-  .logo span { color: var(--text); }
+  .logo { font-size: 20px; font-weight: 700; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 6px; }
+  .logo .check { color: var(--accent); }
   .nav-links { display: flex; gap: 24px; align-items: center; }
   .nav-links a { text-decoration: none; color: var(--text2); font-size: 14px; font-weight: 500; transition: color .2s; display: flex; align-items: center; gap: 5px; }
   .nav-links a:hover { color: var(--accent); }
@@ -67,6 +67,15 @@
   .course-meta { display: flex; gap: 16px; font-size: 13px; color: var(--text2); margin-bottom: 12px; }
   .course-meta span { display: flex; align-items: center; gap: 4px; }
   .course-price { font-size: 18px; font-weight: 700; color: var(--accent); }
+
+  /* CATALOG SECTIONS */
+  .catalog-section { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 16px; overflow: hidden; }
+  .catalog-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; cursor: pointer; transition: background .2s; }
+  .catalog-header:hover { background: var(--accent-light); }
+  .catalog-header h3 { font-size: 17px; font-weight: 700; margin: 0; }
+  .catalog-body { padding: 0 20px 20px; }
+  .catalog-section.collapsed .catalog-body { display: none; }
+  .catalog-section.collapsed .chevron { transform: rotate(-90deg); }
 
   /* LESSON */
   .lesson-section { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; margin-top: 20px; }
@@ -233,6 +242,9 @@
   <symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
   </symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="6 9 12 15 18 9"/>
+  </symbol>
   <symbol id="i-reply" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <polyline points="9 17 4 12 9 7"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/>
   </symbol>
@@ -242,8 +254,7 @@
 <nav>
   <div class="nav-inner">
     <a href="javascript:void(0)" class="logo" onclick="showScreen('home')">
-      <svg class="icon icon-lg" style="color:var(--accent)"><use href="#i-yarn"/></svg>
-      <span>Тарнакина</span> Вяжу
+      ТарнакинаВяжу <span class="check">✔</span>
     </a>
     <div class="nav-links">
       <a href="javascript:void(0)" class="hide-mobile" onclick="showScreen('home')">Курсы</a>
@@ -259,7 +270,7 @@
 <!-- HOME -->
 <div id="screen-home" class="screen active">
   <div class="hero">
-    <h1>Курсы <em>машинного вязания</em> от Марины Тарнакиной</h1>
+    <h1>Тарнакина Марина, <em>вяжу на машине</em></h1>
     <p>Видеоуроки, мастер-классы и поддержка. Учитесь в своём темпе, смотрите с любого устройства.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
       <a href="#courses" class="btn btn-primary">
@@ -268,58 +279,181 @@
       <a href="javascript:void(0)" class="btn btn-outline" onclick="showScreen('about')">Об авторе</a>
     </div>
     <div class="hero-stats">
-      <div class="hero-stat"><div class="num">4</div><div class="label">видеокурса</div></div>
+      <div class="hero-stat"><div class="num">4</div><div class="label">раздела</div></div>
       <div class="hero-stat"><div class="num">~80</div><div class="label">видеоуроков</div></div>
       <div class="hero-stat"><div class="num">229+</div><div class="label">учеников</div></div>
     </div>
   </div>
 
   <div class="section" id="courses">
-    <div class="section-title">Курсы</div>
-    <div class="section-sub">Выберите курс и начните обучение</div>
-    <div class="courses-grid">
-      <div class="course-card" onclick="showScreen('course')">
-        <div class="course-thumb"><svg class="icon-xxl" style="color:var(--accent)"><use href="#i-yarn"/></svg></div>
-        <div class="course-body">
-          <h3>Основы машинного вязания</h3>
-          <div class="course-meta">
-            <span><svg class="icon" style="width:16px;height:16px"><use href="#i-video"/></svg> ~50 видео</span>
-            <span><svg class="icon" style="width:16px;height:16px"><use href="#i-users"/></svg> 148 уч.</span>
+    <div class="section-title">Каталог</div>
+    <div class="section-sub">Видеокурсы, мастер-классы и полезные материалы. <span style="color:var(--accent);font-weight:500;">Часть материалов доступна бесплатно!</span></div>
+
+    <!-- 1. ОСНОВЫ ОСНОВ -->
+    <div class="catalog-section">
+      <div class="catalog-header" onclick="toggleCatalog(this)">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <svg class="icon icon-lg" style="color:var(--accent)"><use href="#i-yarn"/></svg>
+          <div>
+            <h3>Основы основ</h3>
+            <span style="font-size:13px;color:var(--text2);">Базовый видеокурс · ~50 видеоуроков</span>
           </div>
-          <div class="course-price">3 990 ₽</div>
+        </div>
+        <svg class="icon chevron" style="color:var(--text2);transition:transform .2s"><use href="#i-chevron"/></svg>
+      </div>
+      <div class="catalog-body">
+        <div class="courses-grid">
+          <div class="course-card" onclick="showScreen('course')">
+            <div class="course-thumb"><svg class="icon-xxl" style="color:var(--accent)"><use href="#i-yarn"/></svg></div>
+            <div class="course-body">
+              <h3>Основы машинного вязания</h3>
+              <div class="course-meta">
+                <span><svg class="icon" style="width:16px;height:16px"><use href="#i-video"/></svg> ~50 видео</span>
+                <span><svg class="icon" style="width:16px;height:16px"><use href="#i-users"/></svg> 148 уч.</span>
+              </div>
+              <div class="course-price">3 990 ₽</div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="course-card">
-        <div class="course-thumb"><svg class="icon-xxl" style="color:var(--accent)"><use href="#i-grid"/></svg></div>
-        <div class="course-body">
-          <h3>Жаккард на машине</h3>
-          <div class="course-meta">
-            <span><svg class="icon" style="width:16px;height:16px"><use href="#i-video"/></svg> 15 видео</span>
-            <span><svg class="icon" style="width:16px;height:16px"><use href="#i-users"/></svg> 39 уч.</span>
+    </div>
+
+    <!-- 2. МК ПО ИЗГОТОВЛЕНИЮ ИЗДЕЛИЙ -->
+    <div class="catalog-section">
+      <div class="catalog-header" onclick="toggleCatalog(this)">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <svg class="icon icon-lg" style="color:var(--accent)"><use href="#i-scissors"/></svg>
+          <div>
+            <h3>МК по изготовлению изделий</h3>
+            <span style="font-size:13px;color:var(--text2);">Плечевые изделия, аксессуары</span>
           </div>
-          <div class="course-price">2 490 ₽</div>
+        </div>
+        <svg class="icon chevron" style="color:var(--text2);transition:transform .2s"><use href="#i-chevron"/></svg>
+      </div>
+      <div class="catalog-body">
+        <p style="font-size:13px;color:var(--text2);font-weight:600;margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px;">Плечевые изделия</p>
+        <div class="courses-grid">
+          <div class="course-card">
+            <div class="course-thumb"><svg class="icon-xxl" style="color:var(--accent)"><use href="#i-scissors"/></svg></div>
+            <div class="course-body">
+              <h3>МК Свитер «ШЕР»</h3>
+              <div class="course-meta">
+                <span><svg class="icon" style="width:16px;height:16px"><use href="#i-video"/></svg> видеокурс</span>
+              </div>
+              <div class="course-price">1 490 ₽</div>
+            </div>
+          </div>
+          <div class="course-card">
+            <div class="course-thumb"><svg class="icon-xxl" style="color:var(--accent)"><use href="#i-scissors"/></svg></div>
+            <div class="course-body">
+              <h3>МК Жакет «ОЛИВИЯ»</h3>
+              <div class="course-meta">
+                <span><svg class="icon" style="width:16px;height:16px"><use href="#i-video"/></svg> видеокурс</span>
+              </div>
+              <div class="course-price">1 990 ₽</div>
+            </div>
+          </div>
+          <div class="course-card">
+            <div class="course-thumb"><svg class="icon-xxl" style="color:var(--accent)"><use href="#i-scissors"/></svg></div>
+            <div class="course-body">
+              <h3>МК Топ «ШАУНИ»</h3>
+              <div class="course-meta">
+                <span><svg class="icon" style="width:16px;height:16px"><use href="#i-video"/></svg> видеокурс</span>
+              </div>
+              <div class="course-price">990 ₽</div>
+            </div>
+          </div>
+        </div>
+        <p style="font-size:13px;color:var(--text2);font-weight:600;margin:24px 0 12px;text-transform:uppercase;letter-spacing:.5px;">Аксессуары</p>
+        <div class="courses-grid">
+          <div class="course-card">
+            <div class="course-thumb"><svg class="icon-xxl" style="color:var(--accent)"><use href="#i-heart"/></svg></div>
+            <div class="course-body">
+              <h3>Шапки, шарфы, снуды, варежки</h3>
+              <div class="course-meta">
+                <span><svg class="icon" style="width:16px;height:16px"><use href="#i-video"/></svg> 10 видео</span>
+                <span><svg class="icon" style="width:16px;height:16px"><use href="#i-users"/></svg> 19 уч.</span>
+              </div>
+              <div class="course-price">1 490 ₽</div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="course-card">
-        <div class="course-thumb"><svg class="icon-xxl" style="color:var(--accent)"><use href="#i-scissors"/></svg></div>
-        <div class="course-body">
-          <h3>Платье «Элегант»</h3>
-          <div class="course-meta">
-            <span><svg class="icon" style="width:16px;height:16px"><use href="#i-video"/></svg> 12 видео</span>
-            <span><svg class="icon" style="width:16px;height:16px"><use href="#i-users"/></svg> 23 уч.</span>
+    </div>
+
+    <!-- 3. УЗОРЫ -->
+    <div class="catalog-section">
+      <div class="catalog-header" onclick="toggleCatalog(this)">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <svg class="icon icon-lg" style="color:var(--accent)"><use href="#i-grid"/></svg>
+          <div>
+            <h3>Узоры</h3>
+            <span style="font-size:13px;color:var(--text2);">Схемы, приёмы вязания</span>
           </div>
-          <div class="course-price">1 990 ₽</div>
+        </div>
+        <svg class="icon chevron" style="color:var(--text2);transition:transform .2s"><use href="#i-chevron"/></svg>
+      </div>
+      <div class="catalog-body">
+        <div class="courses-grid">
+          <div class="course-card">
+            <div class="course-thumb"><svg class="icon-xxl" style="color:var(--accent)"><use href="#i-grid"/></svg></div>
+            <div class="course-body">
+              <h3>Жаккард на машине</h3>
+              <div class="course-meta">
+                <span><svg class="icon" style="width:16px;height:16px"><use href="#i-video"/></svg> 15 видео</span>
+                <span><svg class="icon" style="width:16px;height:16px"><use href="#i-users"/></svg> 39 уч.</span>
+              </div>
+              <div class="course-price">2 490 ₽</div>
+            </div>
+          </div>
+          <div class="course-card">
+            <div class="course-thumb"><svg class="icon-xxl" style="color:var(--accent)"><use href="#i-grid"/></svg></div>
+            <div class="course-body">
+              <h3>Ажурные узоры</h3>
+              <div class="course-meta">
+                <span><svg class="icon" style="width:16px;height:16px"><use href="#i-file"/></svg> схемы + видео</span>
+              </div>
+              <div class="course-price">от 290 ₽</div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="course-card">
-        <div class="course-thumb"><svg class="icon-xxl" style="color:var(--accent)"><use href="#i-heart"/></svg></div>
-        <div class="course-body">
-          <h3>Аксессуары: шарфы и шапки</h3>
-          <div class="course-meta">
-            <span><svg class="icon" style="width:16px;height:16px"><use href="#i-video"/></svg> 10 видео</span>
-            <span><svg class="icon" style="width:16px;height:16px"><use href="#i-users"/></svg> 19 уч.</span>
+    </div>
+
+    <!-- 4. ДРУГИЕ ПОЛЕЗНОСТИ -->
+    <div class="catalog-section">
+      <div class="catalog-header" onclick="toggleCatalog(this)">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <svg class="icon icon-lg" style="color:var(--accent)"><use href="#i-book"/></svg>
+          <div>
+            <h3>Другие полезности</h3>
+            <span style="font-size:13px;color:var(--text2);">Советы, лайфхаки, дополнительные материалы</span>
           </div>
-          <div class="course-price">1 490 ₽</div>
+        </div>
+        <svg class="icon chevron" style="color:var(--text2);transition:transform .2s"><use href="#i-chevron"/></svg>
+      </div>
+      <div class="catalog-body">
+        <div class="courses-grid">
+          <div class="course-card">
+            <div class="course-thumb"><svg class="icon-xxl" style="color:var(--accent)"><use href="#i-book"/></svg></div>
+            <div class="course-body">
+              <h3>Уход за вязальной машиной</h3>
+              <div class="course-meta">
+                <span><svg class="icon" style="width:16px;height:16px"><use href="#i-file"/></svg> PDF + видео</span>
+                <span style="color:var(--green);font-weight:600;">Бесплатно</span>
+              </div>
+            </div>
+          </div>
+          <div class="course-card">
+            <div class="course-thumb"><svg class="icon-xxl" style="color:var(--accent)"><use href="#i-book"/></svg></div>
+            <div class="course-body">
+              <h3>Полезные ссылки и ресурсы</h3>
+              <div class="course-meta">
+                <span><svg class="icon" style="width:16px;height:16px"><use href="#i-link"/></svg> подборка</span>
+                <span style="color:var(--green);font-weight:600;">Бесплатно</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -334,8 +468,8 @@
         <svg class="icon" style="width:56px;height:56px;color:var(--accent)"><use href="#i-yarn"/></svg>
       </div>
       <div style="flex:1;min-width:280px;">
-        <div class="section-title">Марина Тарнакина</div>
-        <p style="color:var(--text2);margin-bottom:16px;">Мастер машинного вязания. Более 1000 публикаций, 4 авторских видеокурса, 229+ учеников. Делюсь опытом и помогаю освоить машинное вязание с нуля.</p>
+        <div class="section-title">Тарнакина Марина</div>
+        <p style="color:var(--text2);margin-bottom:16px;">Вяжу на машине. Более 1000 публикаций, авторские видеокурсы и мастер-классы, 229+ учеников. Делюсь опытом и помогаю освоить машинное вязание с нуля.</p>
         <div class="social-links">
           <a href="https://t.me/tarnakinavyagu" target="_blank">Telegram</a>
           <a href="https://max.ru/vyazanie_na_mashine" target="_blank">Max</a>
@@ -574,10 +708,9 @@
   <div class="footer-inner">
     <div class="footer-brand">
       <div class="logo" style="font-size:18px;">
-        <svg class="icon icon-lg" style="color:var(--accent)"><use href="#i-yarn"/></svg>
-        <span>Тарнакина</span> Вяжу
+        ТарнакинаВяжу <span class="check">✔</span>
       </div>
-      <p>Видеокурсы по машинному вязанию от Марины Тарнакиной. Учитесь в удобном темпе.</p>
+      <p>Тарнакина Марина, вяжу на машине. Видеокурсы и мастер-классы.</p>
       <div class="social-links">
         <a href="https://t.me/tarnakinavyagu" target="_blank">Telegram</a>
         <a href="https://dzen.ru/vyazanie_na_mashine" target="_blank">Дзен</a>
@@ -624,6 +757,9 @@ function doLogin() {
   document.getElementById('nav-login').style.display = 'none';
   document.getElementById('nav-profile').style.display = 'inline-flex';
   showScreen('dashboard');
+}
+function toggleCatalog(header) {
+  header.parentElement.classList.toggle('collapsed');
 }
 function switchTab(el, tabId) {
   el.parentElement.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
