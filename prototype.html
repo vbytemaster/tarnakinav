@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Тарнакина Вяжу — Видеокурсы по машинному вязанию</title>
+<style>
+  :root {
+    --bg: #faf8f5;
+    --card: #ffffff;
+    --text: #2c2c2c;
+    --text2: #6b6b6b;
+    --accent: #c47a5a;
+    --accent2: #a85d3f;
+    --accent-light: #f3ebe5;
+    --border: #e8e2da;
+    --green: #4caf50;
+    --radius: 12px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  
+  /* NAV */
+  nav { background: var(--card); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+  .nav-inner { max-width: 1100px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { font-size: 20px; font-weight: 700; color: var(--accent); text-decoration: none; }
+  .logo span { color: var(--text); }
+  .nav-links { display: flex; gap: 24px; align-items: center; }
+  .nav-links a { text-decoration: none; color: var(--text2); font-size: 14px; font-weight: 500; transition: color .2s; }
+  .nav-links a:hover { color: var(--accent); }
+  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 22px; border-radius: 8px; font-size: 14px; font-weight: 600; text-decoration: none; border: none; cursor: pointer; transition: all .2s; }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent2); }
+  .btn-outline { background: transparent; border: 1.5px solid var(--border); color: var(--text); }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-sm { padding: 7px 16px; font-size: 13px; }
+
+  /* HERO */
+  .hero { max-width: 1100px; margin: 0 auto; padding: 60px 20px 40px; text-align: center; }
+  .hero h1 { font-size: 42px; font-weight: 800; line-height: 1.2; margin-bottom: 16px; }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero p { font-size: 18px; color: var(--text2); max-width: 600px; margin: 0 auto 32px; }
+  .hero-stats { display: flex; justify-content: center; gap: 40px; margin-top: 32px; }
+  .hero-stat { text-align: center; }
+  .hero-stat .num { font-size: 28px; font-weight: 700; color: var(--accent); }
+  .hero-stat .label { font-size: 13px; color: var(--text2); }
+
+  /* COURSES */
+  .section { max-width: 1100px; margin: 0 auto; padding: 50px 20px; }
+  .section-title { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+  .section-sub { color: var(--text2); margin-bottom: 32px; }
+  .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+  .course-card { background: var(--card); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); transition: transform .2s, box-shadow .2s; }
+  .course-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+  .course-thumb { height: 160px; background: var(--accent-light); display: flex; align-items: center; justify-content: center; font-size: 48px; }
+  .course-body { padding: 16px; }
+  .course-body h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+  .course-meta { display: flex; gap: 16px; font-size: 13px; color: var(--text2); margin-bottom: 12px; }
+  .course-meta span { display: flex; align-items: center; gap: 4px; }
+  .course-price { font-size: 18px; font-weight: 700; color: var(--accent); }
+  .course-price .old { font-size: 14px; color: var(--text2); text-decoration: line-through; font-weight: 400; margin-left: 8px; }
+
+  /* LESSON PREVIEW */
+  .lesson-section { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; margin-top: 20px; }
+  .lesson-list { list-style: none; }
+  .lesson-item { display: flex; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .lesson-item:last-child { border-bottom: none; }
+  .lesson-num { width: 32px; height: 32px; border-radius: 50%; background: var(--accent-light); color: var(--accent); font-weight: 700; font-size: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .lesson-info { flex: 1; }
+  .lesson-info h4 { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
+  .lesson-info span { font-size: 13px; color: var(--text2); }
+  .lesson-lock { color: var(--text2); font-size: 18px; }
+  .lesson-play { color: var(--green); font-size: 18px; }
+  .progress-bar { height: 4px; background: var(--border); border-radius: 2px; margin-top: 4px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--accent); border-radius: 2px; }
+
+  /* CHAT PREVIEW */
+  .chat-preview { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-top: 20px; }
+  .chat-msg { display: flex; gap: 10px; margin-bottom: 14px; }
+  .chat-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--accent-light); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: var(--accent); flex-shrink: 0; }
+  .chat-bubble { background: var(--bg); border-radius: 12px; padding: 10px 14px; max-width: 80%; }
+  .chat-bubble .name { font-size: 12px; font-weight: 600; color: var(--accent); margin-bottom: 2px; }
+  .chat-bubble p { font-size: 14px; margin: 0; }
+  .chat-bubble .reply-ref { font-size: 12px; color: var(--text2); border-left: 2px solid var(--accent); padding-left: 8px; margin-bottom: 6px; }
+  .chat-input { display: flex; gap: 10px; margin-top: 14px; border-top: 1px solid var(--border); padding-top: 14px; }
+  .chat-input input { flex: 1; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; outline: none; }
+  .chat-input input:focus { border-color: var(--accent); }
+
+  /* FOOTER */
+  footer { background: var(--card); border-top: 1px solid var(--border); margin-top: 60px; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; padding: 40px 20px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; }
+  .footer-brand p { font-size: 14px; color: var(--text2); margin-top: 8px; max-width: 300px; }
+  .footer-col h4 { font-size: 14px; font-weight: 600; margin-bottom: 12px; color: var(--text); }
+  .footer-col a { display: block; font-size: 13px; color: var(--text2); text-decoration: none; margin-bottom: 8px; transition: color .2s; }
+  .footer-col a:hover { color: var(--accent); }
+  .footer-bottom { max-width: 1100px; margin: 0 auto; padding: 16px 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text2); text-align: center; }
+  .social-links { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+  .social-links a { display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; border-radius: 6px; font-size: 12px; background: var(--accent-light); color: var(--accent2); text-decoration: none; font-weight: 500; transition: all .2s; }
+  .social-links a:hover { background: var(--accent); color: #fff; }
+
+  /* TABS */
+  .tabs { display: flex; gap: 0; border-bottom: 2px solid var(--border); margin-bottom: 24px; }
+  .tab { padding: 10px 20px; font-size: 14px; font-weight: 600; color: var(--text2); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all .2s; }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab:hover { color: var(--accent); }
+
+  /* AUTH MODAL */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.4); display: none; align-items: center; justify-content: center; z-index: 200; }
+  .modal-overlay.show { display: flex; }
+  .modal { background: var(--card); border-radius: 16px; padding: 32px; width: 380px; max-width: 90vw; }
+  .modal h2 { font-size: 22px; margin-bottom: 20px; text-align: center; }
+  .modal label { font-size: 13px; font-weight: 600; color: var(--text2); display: block; margin-bottom: 4px; }
+  .modal input[type=email], .modal input[type=password] { width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; margin-bottom: 14px; outline: none; }
+  .modal input:focus { border-color: var(--accent); }
+  .modal .btn { width: 100%; justify-content: center; margin-top: 4px; }
+  .modal .divider { text-align: center; color: var(--text2); font-size: 13px; margin: 16px 0; }
+  .modal .close-btn { position: absolute; right: 16px; top: 16px; background: none; border: none; font-size: 20px; cursor: pointer; color: var(--text2); }
+
+  /* SCREEN SWITCHER */
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 28px; }
+    .hero-stats { gap: 20px; }
+    .footer-inner { grid-template-columns: 1fr; gap: 24px; }
+    .nav-links { gap: 12px; }
+    .nav-links a.hide-mobile { display: none; }
+    .courses-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo" onclick="showScreen('home')">🧶 <span>Тарнакина</span> Вяжу</a>
+    <div class="nav-links">
+      <a href="javascript:void(0)" class="hide-mobile" onclick="showScreen('home')">Курсы</a>
+      <a href="javascript:void(0)" class="hide-mobile" onclick="showScreen('about')">Об авторе</a>
+      <a href="javascript:void(0)" id="nav-login" onclick="showModal()">Войти</a>
+      <a href="javascript:void(0)" id="nav-profile" style="display:none" onclick="showScreen('dashboard')">👤 Мой кабинет</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HOME SCREEN -->
+<div id="screen-home" class="screen active">
+  <div class="hero">
+    <h1>Курсы <em>машинного вязания</em> от Марины Тарнакиной</h1>
+    <p>Видеоуроки, мастер-классы и поддержка. Учитесь в своём темпе, смотрите с любого устройства.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="#courses" class="btn btn-primary">🎓 Смотреть курсы</a>
+      <a href="#" class="btn btn-outline" onclick="showScreen('about')">Об авторе</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">4</div><div class="label">видеокурса</div></div>
+      <div class="hero-stat"><div class="num">~80</div><div class="label">видеоуроков</div></div>
+      <div class="hero-stat"><div class="num">229+</div><div class="label">учеников</div></div>
+    </div>
+  </div>
+
+  <div class="section" id="courses">
+    <div class="section-title">Курсы</div>
+    <div class="section-sub">Выберите курс и начните обучение</div>
+    <div class="courses-grid">
+      <div class="course-card" onclick="showScreen('course')">
+        <div class="course-thumb">🧶</div>
+        <div class="course-body">
+          <h3>Основы машинного вязания</h3>
+          <div class="course-meta">
+            <span>📹 ~50 видео</span>
+            <span>👥 148 уч.</span>
+          </div>
+          <div class="course-price">3 990 ₽</div>
+        </div>
+      </div>
+      <div class="course-card">
+        <div class="course-thumb">🎨</div>
+        <div class="course-body">
+          <h3>Жаккард на машине</h3>
+          <div class="course-meta">
+            <span>📹 15 видео</span>
+            <span>👥 39 уч.</span>
+          </div>
+          <div class="course-price">2 490 ₽</div>
+        </div>
+      </div>
+      <div class="course-card">
+        <div class="course-thumb">👗</div>
+        <div class="course-body">
+          <h3>Платье «Элегант»</h3>
+          <div class="course-meta">
+            <span>📹 12 видео</span>
+            <span>👥 23 уч.</span>
+          </div>
+          <div class="course-price">1 990 ₽</div>
+        </div>
+      </div>
+      <div class="course-card">
+        <div class="course-thumb">🧣</div>
+        <div class="course-body">
+          <h3>Аксессуары: шарфы и шапки</h3>
+          <div class="course-meta">
+            <span>📹 10 видео</span>
+            <span>👥 19 уч.</span>
+          </div>
+          <div class="course-price">1 490 ₽</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT SCREEN -->
+<div id="screen-about" class="screen">
+  <div class="section">
+    <div style="display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap;">
+      <div style="width:120px;height:120px;border-radius:50%;background:var(--accent-light);display:flex;align-items:center;justify-content:center;font-size:48px;flex-shrink:0;">🧶</div>
+      <div style="flex:1;min-width:280px;">
+        <div class="section-title">Марина Тарнакина</div>
+        <p style="color:var(--text2);margin-bottom:16px;">Мастер машинного вязания. Более 1000 публикаций, 4 авторских видеокурса, 229+ учеников. Делюсь опытом и помогаю освоить машинное вязание с нуля.</p>
+        <div class="social-links">
+          <a href="https://t.me/tarnakinavyagu" target="_blank">📱 Telegram</a>
+          <a href="https://max.ru/vyazanie_na_mashine" target="_blank">💬 Max</a>
+          <a href="https://dzen.ru/vyazanie_na_mashine" target="_blank">📝 Дзен</a>
+          <a href="https://boosty.to/tarnakinavyagu" target="_blank">⭐ Boosty</a>
+          <a href="https://rutube.ru/u/tarnakinavyagu/" target="_blank">🎬 Rutube</a>
+          <a href="https://www.livemaster.ru/opisanie-vyazanie" target="_blank">🛒 Ярмарка МК</a>
+          <a href="https://marishino.livemaster.ru" target="_blank">🧵 Ярмарка Изделия</a>
+        </div>
+        <p style="margin-top:16px;font-size:14px;color:var(--text2);">
+          ✉️ <a href="mailto:mtroshina@yandex.ru" style="color:var(--accent);">mtroshina@yandex.ru</a><br>
+          📩 <a href="https://t.me/mtroshina" target="_blank" style="color:var(--accent);">Написать в Telegram</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COURSE DETAIL SCREEN -->
+<div id="screen-course" class="screen">
+  <div class="section">
+    <a href="javascript:void(0)" onclick="showScreen('home')" style="color:var(--accent);text-decoration:none;font-size:14px;font-weight:500;">← Назад к курсам</a>
+    <h2 style="margin-top:12px;font-size:28px;">Основы машинного вязания</h2>
+    <p style="color:var(--text2);margin:8px 0 20px;">Полный курс от Марины Тарнакиной. ~50 видеоуроков, от азов до сложных техник.</p>
+    
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab(this,'lessons')">📹 Уроки</div>
+      <div class="tab" onclick="switchTab(this,'chat-tab')">💬 Чат</div>
+      <div class="tab" onclick="switchTab(this,'materials')">📎 Материалы</div>
+    </div>
+
+    <div id="tab-lessons" class="lesson-section">
+      <ul class="lesson-list">
+        <li class="lesson-item">
+          <div class="lesson-num">1</div>
+          <div class="lesson-info">
+            <h4>Знакомство с вязальной машиной</h4>
+            <span>12:34</span>
+            <div class="progress-bar" style="width:120px;"><div class="progress-fill" style="width:100%"></div></div>
+          </div>
+          <div class="lesson-play">✅</div>
+        </li>
+        <li class="lesson-item">
+          <div class="lesson-num">2</div>
+          <div class="lesson-info">
+            <h4>Набор петель и первые ряды</h4>
+            <span>18:45</span>
+            <div class="progress-bar" style="width:120px;"><div class="progress-fill" style="width:60%"></div></div>
+          </div>
+          <div class="lesson-play">▶️</div>
+        </li>
+        <li class="lesson-item">
+          <div class="lesson-num">3</div>
+          <div class="lesson-info">
+            <h4>Кулирная гладь и резинка</h4>
+            <span>22:10</span>
+          </div>
+          <div class="lesson-lock">🔒</div>
+        </li>
+        <li class="lesson-item">
+          <div class="lesson-num">4</div>
+          <div class="lesson-info">
+            <h4>Убавки и прибавки</h4>
+            <span>15:20</span>
+          </div>
+          <div class="lesson-lock">🔒</div>
+        </li>
+        <li class="lesson-item">
+          <div class="lesson-num">5</div>
+          <div class="lesson-info">
+            <h4>Вязание по выкройке</h4>
+            <span>25:00</span>
+          </div>
+          <div class="lesson-lock">🔒</div>
+        </li>
+      </ul>
+      <p style="text-align:center;color:var(--text2);font-size:13px;margin-top:16px;">... ещё 45 уроков</p>
+    </div>
+
+    <div id="tab-chat-tab" class="chat-preview" style="display:none;">
+      <div class="chat-msg">
+        <div class="chat-avatar">МТ</div>
+        <div class="chat-bubble">
+          <div class="name">Марина Тарнакина</div>
+          <p>Девочки, добро пожаловать на курс! Задавайте вопросы, я всегда на связи 🤗</p>
+        </div>
+      </div>
+      <div class="chat-msg">
+        <div class="chat-avatar">ЕК</div>
+        <div class="chat-bubble">
+          <div class="name">Елена К.</div>
+          <div class="reply-ref">↩️ Урок 2 — Набор петель и первые ряды</div>
+          <p>Марина, подскажите — каретка заедает на 3-м ряду, что делаю не так?</p>
+        </div>
+      </div>
+      <div class="chat-msg">
+        <div class="chat-avatar">МТ</div>
+        <div class="chat-bubble">
+          <div class="name">Марина Тарнакина</div>
+          <p>Елена, скорее всего нитка слишком толстая для этой плотности. Попробуйте ослабить натяжение на 1 деление 👍</p>
+        </div>
+      </div>
+      <div class="chat-msg">
+        <div class="chat-avatar">ОВ</div>
+        <div class="chat-bubble">
+          <div class="name">Ольга В.</div>
+          <p>Ура, у меня получился первый образец! 🎉</p>
+        </div>
+      </div>
+      <div class="chat-input">
+        <input type="text" placeholder="Написать сообщение...">
+        <button class="btn btn-primary btn-sm">→</button>
+      </div>
+    </div>
+
+    <div id="tab-materials" style="display:none;" class="lesson-section">
+      <div class="lesson-item">
+        <div style="font-size:24px;">📄</div>
+        <div class="lesson-info">
+          <h4>Таблица размеров.pdf</h4>
+          <span>245 KB • Скачивание разрешено</span>
+        </div>
+        <a href="#" class="btn btn-outline btn-sm">⬇️</a>
+      </div>
+      <div class="lesson-item">
+        <div style="font-size:24px;">🖼️</div>
+        <div class="lesson-info">
+          <h4>Схема узора «Ромбы»</h4>
+          <span>1.2 MB • Только просмотр</span>
+        </div>
+        <span style="font-size:13px;color:var(--text2);">🔒</span>
+      </div>
+      <div class="lesson-item">
+        <div style="font-size:24px;">📄</div>
+        <div class="lesson-info">
+          <h4>Выкройка базовый джемпер.pdf</h4>
+          <span>380 KB • Скачивание разрешено</span>
+        </div>
+        <a href="#" class="btn btn-outline btn-sm">⬇️</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD SCREEN -->
+<div id="screen-dashboard" class="screen">
+  <div class="section">
+    <div class="section-title">👤 Мой кабинет</div>
+    <div class="section-sub">Добро пожаловать, Елена!</div>
+    
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;">
+        <h3 style="font-size:15px;margin-bottom:12px;">📚 Мои курсы</h3>
+        <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);">
+          <span style="font-size:24px;">🧶</span>
+          <div style="flex:1;">
+            <div style="font-size:14px;font-weight:600;">Основы машинного вязания</div>
+            <div style="font-size:12px;color:var(--text2);">Пройдено: 2 из 50</div>
+            <div class="progress-bar" style="margin-top:4px;"><div class="progress-fill" style="width:4%"></div></div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:10px 0;">
+          <span style="font-size:24px;">🎨</span>
+          <div style="flex:1;">
+            <div style="font-size:14px;font-weight:600;">Жаккард на машине</div>
+            <div style="font-size:12px;color:var(--text2);">Пройдено: 8 из 15</div>
+            <div class="progress-bar" style="margin-top:4px;"><div class="progress-fill" style="width:53%"></div></div>
+          </div>
+        </div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;">
+        <h3 style="font-size:15px;margin-bottom:12px;">⚙️ Настройки</h3>
+        <div style="font-size:14px;margin-bottom:8px;">📧 elena@example.com</div>
+        <div style="font-size:14px;margin-bottom:16px;">🔑 Пароль: ••••••••</div>
+        <a href="#" class="btn btn-outline btn-sm">Изменить данные</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AUTH MODAL -->
+<div class="modal-overlay" id="auth-modal" onclick="if(event.target===this)hideModal()">
+  <div class="modal" style="position:relative;">
+    <button class="close-btn" onclick="hideModal()">✕</button>
+    <h2>Вход</h2>
+    <label>Email</label>
+    <input type="email" placeholder="your@email.com">
+    <label>Пароль</label>
+    <input type="password" placeholder="••••••••">
+    <button class="btn btn-primary" onclick="doLogin()">Войти</button>
+    <div class="divider">или</div>
+    <button class="btn btn-outline" style="width:100%;justify-content:center;">🔗 Войти по ссылке из письма</button>
+    <p style="text-align:center;margin-top:16px;font-size:13px;color:var(--text2);">Нет аккаунта? <a href="#" style="color:var(--accent);" onclick="alert('Регистрация через покупку курса')">Купите курс</a></p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">🧶 <span>Тарнакина</span> Вяжу</div>
+      <p>Видеокурсы по машинному вязанию от Марины Тарнакиной. Учитесь в удобном темпе.</p>
+      <div class="social-links">
+        <a href="https://t.me/tarnakinavyagu" target="_blank">Telegram</a>
+        <a href="https://dzen.ru/vyazanie_na_mashine" target="_blank">Дзен</a>
+        <a href="https://max.ru/vyazanie_na_mashine" target="_blank">Max</a>
+        <a href="https://boosty.to/tarnakinavyagu" target="_blank">Boosty</a>
+        <a href="https://rutube.ru/u/tarnakinavyagu/" target="_blank">Rutube</a>
+        <a href="https://www.livemaster.ru/opisanie-vyazanie" target="_blank">Ярмарка МК</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Платформа</h4>
+      <a href="javascript:void(0)" onclick="showScreen('home')">Все курсы</a>
+      <a href="javascript:void(0)" onclick="showScreen('about')">Об авторе</a>
+      <a href="#">Поддержка</a>
+    </div>
+    <div class="footer-col">
+      <h4>Контакты</h4>
+      <a href="mailto:mtroshina@yandex.ru">mtroshina@yandex.ru</a>
+      <a href="https://t.me/mtroshina" target="_blank">Написать в Telegram</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 Тарнакина Вяжу. Все права защищены.</div>
+</footer>
+
+<script>
+function showScreen(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + name).classList.add('active');
+  window.scrollTo(0, 0);
+}
+function showModal() {
+  document.getElementById('auth-modal').classList.add('show');
+}
+function hideModal() {
+  document.getElementById('auth-modal').classList.remove('show');
+}
+function doLogin() {
+  hideModal();
+  document.getElementById('nav-login').style.display = 'none';
+  document.getElementById('nav-profile').style.display = 'inline';
+  showScreen('dashboard');
+}
+function switchTab(el, tabId) {
+  el.parentElement.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  ['lessons','chat-tab','materials'].forEach(id => {
+    const tab = document.getElementById('tab-' + id);
+    if (tab) tab.style.display = id === tabId ? 'block' : 'none';
+  });
+}
+</script>
+</body>
+</html>
