@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Тарнакина Марина — вяжу на машине</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #faf8f5;
+      --card-bg: #ffffff;
+      --text: #2d2a26;
+      --text-muted: #7a756e;
+      --accent: #c2785c;
+      --accent-hover: #a8624a;
+      --border: #e8e4df;
+      --radius: 12px;
+    }
+
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .logo span { color: var(--text); }
+    nav { display: flex; gap: 24px; align-items: center; }
+    nav a {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 15px;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--accent); }
+    .btn {
+      display: inline-block;
+      padding: 10px 24px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn:hover { background: var(--accent-hover); }
+    .btn-outline {
+      background: transparent;
+      color: var(--accent);
+      border: 1.5px solid var(--accent);
+    }
+    .btn-outline:hover { background: var(--accent); color: #fff; }
+
+    /* ── Hero ── */
+    .hero {
+      display: flex;
+      align-items: center;
+      gap: 48px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 64px 24px;
+    }
+    .hero-photo {
+      width: 340px;
+      height: 420px;
+      border-radius: var(--radius);
+      object-fit: cover;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+    .hero-text h1 {
+      font-size: 36px;
+      line-height: 1.3;
+      margin-bottom: 16px;
+    }
+    .hero-text h1 span { color: var(--accent); }
+    .hero-text p {
+      font-size: 18px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+    .hero-tags span {
+      background: #f3ede7;
+      color: var(--text);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+    }
+    .hero-tags span::before { content: '✔️ '; }
+
+    /* ── Courses ── */
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+    .section-title {
+      font-size: 28px;
+      margin-bottom: 32px;
+      text-align: center;
+    }
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 24px;
+    }
+    .course-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .course-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+    .course-thumb {
+      width: 100%;
+      height: 180px;
+      background: linear-gradient(135deg, #e8d5c4, #f3ede7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+    }
+    .course-info {
+      padding: 20px;
+    }
+    .course-info h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+    .course-info p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .course-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+    }
+    .course-meta .lessons { color: var(--text-muted); }
+    .course-meta .price { font-weight: bold; color: var(--accent); font-size: 18px; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 32px;
+      color: var(--text-muted);
+      font-size: 14px;
+      border-top: 1px solid var(--border);
+      margin-top: 48px;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 768px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 32px 16px;
+        gap: 24px;
+      }
+      .hero-photo { width: 200px; height: 250px; }
+      .hero-text h1 { font-size: 26px; }
+      .hero-tags { justify-content: center; }
+      nav { gap: 12px; }
+      .courses-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <a href="#" class="logo">Тарнакина<span>Вяжу</span> ✔️</a>
+    <nav>
+      <a href="#">Курсы</a>
+      <a href="#">О нас</a>
+      <a href="#" class="btn btn-outline">Войти</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <img class="hero-photo" src="" alt="Марина Тарнакина" title="Фото автора (placeholder)">
+    <div class="hero-text">
+      <h1>Тарнакина Марина,<br><span>вяжу на машине</span></h1>
+      <p>Технолог трикотажных изделий. Делюсь знаниями и опытом ремесла.</p>
+      <div class="hero-tags">
+        <span>Возможности оборудования</span>
+        <span>Пряжа и свойства</span>
+        <span>Техники вязания</span>
+        <span>Технологии изготовления</span>
+      </div>
+      <a href="#courses" class="btn">Смотреть курсы</a>
+    </div>
+  </section>
+
+  <!-- Courses -->
+  <section class="section" id="courses">
+    <h2 class="section-title">Видеокурсы</h2>
+    <div class="courses-grid">
+
+      <div class="course-card">
+        <div class="course-thumb">🧶</div>
+        <div class="course-info">
+          <h3>Основной курс вязания на машине</h3>
+          <p>Полный курс от основ до сложных техник. Всё об оборудовании, пряже и технологиях.</p>
+          <div class="course-meta">
+            <span class="lessons">50 уроков</span>
+            <span class="price">4 990 ₽</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-thumb">🎨</div>
+        <div class="course-info">
+          <h3>Техники и узоры</h3>
+          <p>Разнообразные техники вязания и создание узоров на машине.</p>
+          <div class="course-meta">
+            <span class="lessons">15 уроков</span>
+            <span class="price">2 490 ₽</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-thumb">👗</div>
+        <div class="course-info">
+          <h3>Изготовление изделий</h3>
+          <p>От выкройки до готового изделия. Практические проекты.</p>
+          <div class="course-meta">
+            <span class="lessons">12 уроков</span>
+            <span class="price">2 990 ₽</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-thumb">⚙️</div>
+        <div class="course-info">
+          <h3>Оборудование и настройка</h3>
+          <p>Выбор машины, настройка, обслуживание и ремонт.</p>
+          <div class="course-meta">
+            <span class="lessons">10 уроков</span>
+            <span class="price">1 990 ₽</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 ТарнакинаВяжу — Тарнакина Марина. Все права защищены.</p>
+  </footer>
+
+</body>
+</html>
