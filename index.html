@@ -542,17 +542,30 @@
     <button class="close-btn" onclick="hideModal()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="18" height="18"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>
-    <h2>Вход</h2>
-    <label>Email</label>
-    <input type="email" placeholder="your@email.com">
-    <label>Пароль</label>
-    <input type="password" placeholder="••••••••">
-    <button class="btn btn-primary" onclick="doLogin()">Войти</button>
-    <div class="divider">или</div>
-    <button class="btn btn-outline" style="width:100%;justify-content:center;">
-      <svg class="icon" style="width:16px;height:16px"><use href="#i-link"/></svg> Войти по ссылке из письма
-    </button>
-    <p style="text-align:center;margin-top:16px;font-size:13px;color:var(--text2);">Нет аккаунта? <a href="#" style="color:var(--accent);" onclick="alert('Регистрация через покупку курса')">Купите курс</a></p>
+    <!-- LOGIN FORM -->
+    <div id="form-login">
+      <h2>Вход</h2>
+      <label>Email</label>
+      <input type="email" placeholder="your@email.com">
+      <label>Пароль</label>
+      <input type="password" placeholder="••••••••">
+      <button class="btn btn-primary" onclick="doLogin()">Войти</button>
+      <p style="text-align:center;margin-top:16px;font-size:13px;color:var(--text2);">Нет аккаунта? <a href="javascript:void(0)" style="color:var(--accent);font-weight:500;" onclick="switchAuthForm('signup')">Зарегистрироваться</a></p>
+    </div>
+    <!-- SIGNUP FORM -->
+    <div id="form-signup" style="display:none;">
+      <h2>Регистрация</h2>
+      <label>Имя</label>
+      <input type="text" placeholder="Ваше имя" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-size:14px;margin-bottom:14px;outline:none;">
+      <label>Email</label>
+      <input type="email" placeholder="your@email.com">
+      <label>Пароль</label>
+      <input type="password" placeholder="Минимум 8 символов">
+      <label>Повторите пароль</label>
+      <input type="password" placeholder="••••••••" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-size:14px;margin-bottom:14px;outline:none;">
+      <button class="btn btn-primary" onclick="doLogin()">Создать аккаунт</button>
+      <p style="text-align:center;margin-top:16px;font-size:13px;color:var(--text2);">Уже есть аккаунт? <a href="javascript:void(0)" style="color:var(--accent);font-weight:500;" onclick="switchAuthForm('login')">Войти</a></p>
+    </div>
   </div>
 </div>
 
@@ -596,7 +609,12 @@ function showScreen(name) {
   window.scrollTo(0, 0);
 }
 function showModal() {
+  switchAuthForm('login');
   document.getElementById('auth-modal').classList.add('show');
+}
+function switchAuthForm(form) {
+  document.getElementById('form-login').style.display = form === 'login' ? 'block' : 'none';
+  document.getElementById('form-signup').style.display = form === 'signup' ? 'block' : 'none';
 }
 function hideModal() {
   document.getElementById('auth-modal').classList.remove('show');
